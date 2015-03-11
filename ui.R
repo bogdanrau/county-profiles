@@ -6,6 +6,8 @@
 # Author & Copyright: Bogdan Rau    #
 # Web: http://bogdanrau.com         #
 #####################################
+
+source("choices.R")
 shinyUI(fluidPage(
   
   # PROVIDE TITLE OF THE PAGE: Includes <title> attribute and an <h1> #
@@ -21,30 +23,21 @@ shinyUI(fluidPage(
             
                     column(12,
                            selectInput("population", label= h6("Select Population"),
-                                       choices = list("0-17 (Child & Teen)" = "0-17",
-                                                      "18-64 (Adults)" = "18-64"))
+                                       choices = population)
                     ),
                     column(12,
                            selectInput("year", label = h6("Select Year"),
-                                       choices = list("2009" = 2009,
-                                                      "2011-2012" = "2011-2012",
-                                                      "2012-2013" = 2012)
-                    )),
+                                       choices = year)
+                    ),
                     column(12,
                            selectInput("locationType", label = h6("Select Geography"),
-                                       choices = list("Counties" = "Counties",
-                                                      "Regions" = "Regions",
-                                                      "SPAs" = "SPAs",
-                                                      "HHSAs" = "HHSAs"))
+                                       choices = geography)
                     ),
                     conditionalPanel(
                             condition = "input.locationType == 'Counties'",
                             column(12,
                                    selectizeInput("coLocation", h6("Select County"),
-                                                       choices = list("Los Angeles" = "LosAngeles",
-                                                                      "Orange" = "Orange",
-                                                                      "San Diego" = "SanDiego",
-                                                                      "Riverside" = "Riverside"),
+                                                       choices = counties,
                                                   options = list(
                                                           placeholder = "Choose or Search for County",
                                                           onInitialize = I('function() { this.setValue(""); }')
@@ -54,10 +47,7 @@ shinyUI(fluidPage(
                             condition = "input.locationType == 'Regions'",
                             column(12,
                                    selectInput("regLocation", label = h6("Select Region"),
-                                               choices = list("Central Coast" = "CentralCoast",
-                                                              "Greater Bay Area" = "GreaterBayArea",
-                                                              "Los Angeles County" = "LosAngelesCounty",
-                                                              "Norther Sierra" = "NorthernSierra"))
+                                               choices = regions)
                             )),
                     column(12,
                            actionButton("getResults", "Get Results!", icon("download"))
