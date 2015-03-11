@@ -9,6 +9,8 @@
 ## Load additional scripts
 source("choices.R")
 source("inputOptions.R")
+library(shiny)
+library(shinyBS)
 ## Begin ShinyUI
 shinyUI(fluidPage(
     
@@ -31,12 +33,12 @@ shinyUI(fluidPage(
                     condition = "input.locationType == 'Regions'",
                     column(12, selectizeInput("regLocation", h6("Select Region"), choices = regions, options = regOptions))
                     ),
-                column(12, actionButton("getResults", "Get Results!", icon("download")))
+                column(12, bsActionButton("getResults", label = "Get results!"))
                 )
             ),
         
         mainPanel(
-            h4("The data contained in this website is fictional."),
+            textOutput("cycle"),
             dataTableOutput("results")
             )
         )

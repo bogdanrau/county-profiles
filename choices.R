@@ -13,7 +13,8 @@ population <- list(
 
 ## Define year list (populates the "Select Year" field)
 year <- list(
-        "2011-2012" = "2011-2012"           
+        "2011-2012" = "2011-2012",
+        "2012-2013" = "2012-2013"
         )
 
 ## Define locationType list (populates the "Select Geography" field)

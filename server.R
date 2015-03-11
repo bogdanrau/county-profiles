@@ -6,8 +6,10 @@
 # Author & Copyright: Bogdan Rau    #
 # Web: http://bogdanrau.com         #
 #####################################
-shinyServer(function(input, output) {
-    
+library(shiny)
+library(shinyBS)
+shinyServer(function(input, output, session) {
+    updateButton(session, "getResults", style = "default", size = "default", disabled = FALSE)
     output$results <- renderDataTable({
         
         input$getResults ## Take a dependency on input$getResults button
@@ -18,7 +20,10 @@ shinyServer(function(input, output) {
                 read.csv(file = paste("data/", input$year, "/", input$population, "/", input$locationType, "/",
                                       input$coLocation, ".csv", sep=""), check.names = FALSE)
                 )
-            print(data) # Print data to console to show on screen
+            highlightRows(session ,'results', column = "2", class = "info")
+            print(data, type='html') # Print data to console to show on screen
+            
+            
         }
         
     },
@@ -30,5 +35,7 @@ shinyServer(function(input, output) {
     )
     
     )
+    
+    output$cycle <- renderText("The data in this website is fictitious.")
     
 })
