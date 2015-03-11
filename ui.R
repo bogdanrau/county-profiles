@@ -6,57 +6,39 @@
 # Author & Copyright: Bogdan Rau    #
 # Web: http://bogdanrau.com         #
 #####################################
-
+## Load additional scripts
 source("choices.R")
+source("inputOptions.R")
+## Begin ShinyUI
 shinyUI(fluidPage(
-  
-  # PROVIDE TITLE OF THE PAGE: Includes <title> attribute and an <h1> #
-  titlePanel("County Profiles"),
-  # SET UP PAGE SIDEBAR W/ A SIDEBAR AND MAIN PANEL #
-  sidebarLayout(
-    sidebarPanel( # SIDEBAR PANEL
-            # Set up row with options to select
+    
+    ## Set title of the page (includes <h1> tag)
+    titlePanel("County Profiles"),
+    
+    ## Set up page with a sidebar and main panel
+    sidebarLayout(
+        sidebarPanel(
             fluidRow(
-                    column(12,
-                           h5("Customize your query below:")
+                column(12, h5("Customize your query below:")),
+                column(12, selectInput("population", label = h6("Select Population"), choices = population)),
+                column(12, selectInput("year", label = h6("Select Year"), choices = year)),
+                column(12, selectInput("locationType", label = h6("Select Geographic Level"), choices = geography)),
+                conditionalPanel(
+                    condition = "input.locationType == 'Counties'",
+                    column(12, selectizeInput("coLocation", h6("Select County"), choices = counties, options = coOptions))
                     ),
-            
-                    column(12,
-                           selectInput("population", label= h6("Select Population"),
-                                       choices = population)
+                conditionalPanel(
+                    condition = "input.locationType == 'Regions'",
+                    column(12, selectizeInput("regLocation", h6("Select Region"), choices = regions, options = regOptions))
                     ),
-                    column(12,
-                           selectInput("year", label = h6("Select Year"),
-                                       choices = year)
-                    ),
-                    column(12,
-                           selectInput("locationType", label = h6("Select Geography"),
-                                       choices = geography)
-                    ),
-                    conditionalPanel(
-                            condition = "input.locationType == 'Counties'",
-                            column(12,
-                                   selectizeInput("coLocation", h6("Select County"),
-                                                       choices = counties,
-                                                  options = list(
-                                                          placeholder = "Choose or Search for County",
-                                                          onInitialize = I('function() { this.setValue(""); }')
-                                                          ))
-                            )),
-                    conditionalPanel(
-                            condition = "input.locationType == 'Regions'",
-                            column(12,
-                                   selectInput("regLocation", label = h6("Select Region"),
-                                               choices = regions)
-                            )),
-                    column(12,
-                           actionButton("getResults", "Get Results!", icon("download"))
-                    )
-                    )),
-    mainPanel( # MAIN PANEL
-            h4("The data contained in this website is not real."),
-      dataTableOutput("results")
-      
-      ) 
-    )
-  ))
+                column(12, actionButton("getResults", "Get Results!", icon("download")))
+                )
+            ),
+        
+        mainPanel(
+            h4("The data contained in this website is fictional."),
+            dataTableOutput("results")
+            )
+        )
+    
+    ))
