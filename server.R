@@ -28,8 +28,15 @@ shinyServer(function(input, output, session) {
         column.searchable = FALSE,
         searching = FALSE,
         paging = FALSE,
-        ordering = FALSE
-    )
+        ordering = FALSE,
+        columnDefs =  list(
+            list(targets = c(2), className = 'alignCenter'),
+            list(targets = c(1), className = 'highlight')
+            )
+            
+            
+        )
+
     
     )
     
@@ -54,7 +61,7 @@ shinyServer(function(input, output, session) {
                     names.arg=c("Uninsured", "Employer-Based", "Medi-Cal/HF", "Other"),
                     col=c("indianred2", "lightskyblue3", "lightskyblue3", "lightskyblue3"),
                     xpd=FALSE)
-            text(mp, values, labels=values, pos=3, offset=.5, xpd=FALSE, font=2)
+            text(mp, values, labels=values, pos=3, offset=.3, xpd=FALSE, font=2)
             abline(h=0, col="black", lwd=1)
 
     }})

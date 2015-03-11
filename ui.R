@@ -12,7 +12,7 @@ source("inputOptions.R")
 library(shiny)
 ## Begin ShinyUI
 shinyUI(fluidPage(
-    
+    tags$head(tags$style(".table .alignCenter { text-align: center; width: 110px; } .table .highlight { text-align: center; background-color: #ebebeb; width: 110px; }")),
     ## Set title of the page (includes <h1> tag)
     titlePanel("County Profiles"),
     
