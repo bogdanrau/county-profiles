@@ -66,5 +66,30 @@ shinyServer(function(input, output, session) {
 
     }})
     
+    output$downloadPlot <- downloadHandler(
+        # Specify the file name
+        filename = function() {
+            paste("chart.png")
+        },
+        content = function(file) {
+            # open the device
+            png(file, width = 580, height = 400)
+            # create the plot
+                mp <- barplot(insurance[,'V2'],
+                      main="Insurance Status",
+                      ylab="Adults aged 18-64 (%)",
+                      ylim= range(pretty(c(0, values))),
+                      xlab="Health Insurance",
+                      names.arg=c("Uninsured", "Employer-Based", "Medi-Cal/HF", "Other"),
+                      col=c("indianred2", "lightskyblue3", "lightskyblue3", "lightskyblue3"),
+                      xpd=FALSE)
+                      text(mp, values, labels=values, pos=3, offset=.3, xpd=FALSE, font=2)
+                      abline(h=0, col="black", lwd=1)
+                 
+            # close the device
+            dev.off()
+        }
+        )
+    
     
 })

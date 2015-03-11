@@ -37,6 +37,7 @@ shinyUI(fluidPage(
             ),
         
         mainPanel(
+            downloadButton(outputId = "downloadPlot", label = "Download Chart"),
             plotOutput("insuranceStatus"),
             dataTableOutput("results")
             )
