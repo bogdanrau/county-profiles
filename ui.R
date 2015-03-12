@@ -7,7 +7,7 @@
 # Web: http://bogdanrau.com         #
 #####################################
 ## Load additional scripts
-source("choices.R")a
+source("choices.R")
 source("inputOptions.R")
 library(shiny)
 ## Begin ShinyUI
