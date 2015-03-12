@@ -76,7 +76,7 @@ shinyServer(function(input, output, session) {
         },
         content = function(file) {
             # open the device
-            png(file, width = 580, height = 330)
+            png(file, width = 1740, height = 990, res = 220)
             # create the plot
             input$getResults
             if(input$getResults == '0') { return() }
