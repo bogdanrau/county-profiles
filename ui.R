@@ -12,14 +12,20 @@ source("inputOptions.R")
 library(shiny)
 ## Begin ShinyUI
 shinyUI(fluidPage(
-    tags$head(tags$style(".table .alignCenter { text-align: center; width: 110px; } .table .highlight { text-align: center; background-color: #ebebeb; width: 110px; }")),
+    tags$head(tags$style(".table .alignCenter { text-align: center; width: 110px; }
+                         .table .highlight { text-align: center; background-color: #ebebeb; width: 110px; }
+                         tfoot { display:none; }
+                         .container-fluid { margin-top: 15px; }
+                         ")),
     ## Set title of the page (includes <h1> tag)
-    titlePanel("County Profiles"),
+    #titlePanel("County Profiles"),
     
     ## Set up page with a sidebar and main panel
     sidebarLayout(
         sidebarPanel(
             fluidRow(
+                column(12, h4("County Profiles v0.0.1")),
+                column(12, h6("NOT FOR PUBLIC USE - CURRENTLY USING DUMMY DATA")),
                 column(12, h5("Customize your query below:")),
                 column(12, selectInput("population", label = h6("Select Population"), choices = population)),
                 column(12, selectInput("year", label = h6("Select Year"), choices = year)),
@@ -38,7 +44,7 @@ shinyUI(fluidPage(
         
         mainPanel(
             downloadButton(outputId = "downloadPlot", label = "Download Chart"),
-            plotOutput("insuranceStatus"),
+            plotOutput("insuranceStatus", width="auto", height=300),
             dataTableOutput("results")
             )
         )

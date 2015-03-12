@@ -25,14 +25,16 @@ shinyServer(function(input, output, session) {
         
     },
     options = list( # data table options to remove certain additional/advanced features
-        column.searchable = FALSE,
-        searching = FALSE,
-        paging = FALSE,
+        column.searchable = 1,
+        searching = TRUE,
+        paging = TRUE,
+        pageLength = 6,
         ordering = FALSE,
         columnDefs =  list(
             list(targets = c(2), className = 'alignCenter'),
             list(targets = c(1), className = 'highlight')
-        )
+        ),
+        lengthMenu = c(5,10,15,20)
         
         
     )
@@ -64,7 +66,7 @@ shinyServer(function(input, output, session) {
             text(mp, values, labels=values, pos=3, offset=-1.5, xpd=FALSE, font=2, col="white")
             abline(h=0, col="black", lwd=1)
             
-        }})
+        }}, width = "auto", height = 300)
     
     output$downloadPlot <- downloadHandler(
         # Specify the file name
@@ -73,7 +75,7 @@ shinyServer(function(input, output, session) {
         },
         content = function(file) {
             # open the device
-            png(file, width = 580, height = 400)
+            png(file, width = 580, height = 300)
             # create the plot
             input$getResults
             if(input$getResults == '0') { return() }
