@@ -15,7 +15,7 @@ shinyUI(fluidPage(
     tags$head(tags$style(".table .alignCenter { text-align: center; width: 110px; }
                          .table .highlight { text-align: center; background-color: #ebebeb; width: 110px; }
                          tfoot { display:none; }
-                         .container-fluid { margin-top: 15px; }
+                         .container-fluid { margin-top: 5px; }
                          ")),
     ## Set title of the page (includes <h1> tag)
     #titlePanel("County Profiles"),
@@ -45,8 +45,9 @@ shinyUI(fluidPage(
         mainPanel(
             conditionalPanel(
                 condition = "input.getResults > 0",
-                downloadButton(outputId = "downloadPlot", label = "Download Chart")),
-            plotOutput("insuranceStatus", width="auto", height=300),
+                downloadButton(outputId = "downloadPlot", label = "Download Chart"),
+                downloadButton(outputId = "downloadTable", label = "Download Table (.csv)")),
+            plotOutput("insuranceStatus", width="auto", height=330),
             dataTableOutput("results")
             )
         )

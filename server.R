@@ -8,6 +8,7 @@
 #####################################
 library(shiny)
 shinyServer(function(input, output, session) {
+    data <- data.frame()
     output$results <- renderDataTable({
         
         input$getResults ## Take a dependency on input$getResults button
@@ -63,10 +64,10 @@ shinyServer(function(input, output, session) {
                           names.arg=c("Uninsured", "Employer-Based", "Medi-Cal/HF", "Other"),
                           col=c("indianred2", "lightskyblue3", "lightskyblue3", "lightskyblue3"),
                           xpd=FALSE)
-            text(mp, values, labels=values, pos=3, offset=-1.5, xpd=FALSE, font=2, col="white")
+            text(mp, values, labels=values, pos=3, offset=-1, xpd=FALSE, font=2, col="white")
             abline(h=0, col="black", lwd=1)
             
-        }}, width = "auto", height = 300)
+        }}, width = "auto", height = 330)
     
     output$downloadPlot <- downloadHandler(
         # Specify the file name
@@ -75,7 +76,7 @@ shinyServer(function(input, output, session) {
         },
         content = function(file) {
             # open the device
-            png(file, width = 580, height = 300)
+            png(file, width = 580, height = 330)
             # create the plot
             input$getResults
             if(input$getResults == '0') { return() }
@@ -96,7 +97,7 @@ shinyServer(function(input, output, session) {
                               names.arg=c("Uninsured", "Employer-Based", "Medi-Cal/HF", "Other"),
                               col=c("indianred2", "lightskyblue3", "lightskyblue3", "lightskyblue3"),
                               xpd=FALSE)
-                text(mp, values, labels=values, pos=3, offset=-1.5, xpd=FALSE, font=2, col="white")
+                text(mp, values, labels=values, pos=3, offset=-1, xpd=FALSE, font=2, col="white")
                 abline(h=0, col="black", lwd=1)
                 
             }
@@ -106,5 +107,23 @@ shinyServer(function(input, output, session) {
         }
     )
     
-    
+    output$downloadTable <- downloadHandler(
+        
+        filename = function() {
+            paste(input$coLocation, "csv", sep=".")
+        },
+        
+        content = function(file) {
+            
+            
+                data <- ## Create data by concatenating different values from the input fields
+                    read.csv(file = paste("data/", input$year, "/", input$population, "/", input$locationType, "/",
+                                          input$coLocation, ".csv", sep=""), check.names = FALSE)
+                
+            
+            
+            write.csv(data, file, row.names=FALSE)
+        }
+        
+        )
 })
