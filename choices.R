@@ -28,13 +28,13 @@ geography <- list(
 # THE FOLLOWING LISTS ARE USED IN CONDITIONAL FIELDS
 ## Define the county list (populates the "Select County" CONDITIONAL field)
 counties <- list(
-#         "Alameda"       = "Alameda",
+         "Alameda"       = "Alameda",
 #         "Alpine"        = "Alpine",
 #         "Amador"        = "Amador",
-#         "Butte"         = "Butte",
+         "Butte"         = "Butte",
 #         "Calaveras"     = "Calaveras",
 #         "Colusa"        = "Colusa",
-#         "Contra Costa"  = "ContraCosta",
+         "Contra Costa"  = "ContraCosta",
 #         "Del Norte"     = "DelNorte",
 #         "El Dorado"     = "ElDorado",
 #         "Fresno"        = "Fresno",
