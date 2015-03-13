@@ -46,7 +46,8 @@ shinyUI(fluidPage(
             conditionalPanel(
                 condition = "input.getResults > 0",
                 downloadButton(outputId = "downloadPlot", label = "Download Chart"),
-                downloadButton(outputId = "downloadTable", label = "Download Table (.csv)")),
+                downloadButton(outputId = "downloadTable", label = "Download Table (.csv)"),
+                htmlOutput(outputId = "downloadPDF", inline = TRUE)),
             plotOutput("insuranceStatus", width="auto", height=330),
             dataTableOutput("results")
             )

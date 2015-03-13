@@ -126,4 +126,10 @@ shinyServer(function(input, output, session) {
         }
         
         )
+    
+    output$downloadPDF <- renderUI({
+        downloadUrl <- paste0('http://healthpolicy.ucla.edu/health-profiles/adults/Documents/2012-2013/Counties/', input$coLocation, '.pdf')
+        tags$a(tags$i(' Download Report (.pdf)', class = 'fa fa-file-pdf-o'), href=downloadUrl, inline = TRUE, class = 'btn btn-default shiny-download-link  shiny-bound-output', target = '_blank')
+    })
+    
 })
